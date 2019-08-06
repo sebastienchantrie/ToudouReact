@@ -1,12 +1,55 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import TodoDelete from "./Todo/TodoDelete";
+import TodoForm from "./Todo/TodoForm";
+import {Col, Nav, NavItem, NavLink, Row, TabContent, TabPane, Button} from 'reactstrap';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import "../src/App.css"
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+class App extends React.Component {
+  state = {
+    clients: []
+  };
+
+  handleDelete = id => {
+    const clients = [...this.state.clients];
+    const index = clients.findIndex(client => client.id === id);
+
+    clients.splice(index, 1);
+
+    this.setState({ clients });
+  };
+
+  handleAdd = client => {
+    const clients = [...this.state.clients];
+    clients.push(client);
+
+    this.setState({ clients });
+  };
+
+  render() {
+    const title = "Tout Doux Liste";
+
+    return (
+      <div>
+        <h1>{title}</h1>
+        <div className="card">
+        <ul>
+          {this.state.clients.map(client => (
+            <TodoDelete
+              key={client.id}
+              details={client}
+              onDelete={this.handleDelete}
+            />
+          ))}
+        </ul>
+        </div>
+        <TodoForm onClientAdd={this.handleAdd} />
+        
+      </div>
+    );
+  }
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
