@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import TodoDelete from "./Todo/TodoDelete";
 import TodoForm from "./Todo/TodoForm";
-import {Col, Nav, NavItem, NavLink, Row, TabContent, TabPane, Button} from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
-import "../src/App.css"
+import './App.css'
 
 class App extends React.Component {
   state = {
@@ -33,19 +33,42 @@ class App extends React.Component {
     return (
       <div>
         <h1>{title}</h1>
-        <div className="card">
-        <ul>
-          {this.state.clients.map(client => (
-            <TodoDelete
-              key={client.id}
-              details={client}
-              onDelete={this.handleDelete}
-            />
-          ))}
-        </ul>
-        </div>
+        <Row className="sous-title">
+            <h2> In progress</h2>
+            <h2>Done</h2>
+            <h2>To do</h2>
+        </Row>
+
+        <Row>
+          <Col sm={{ size: 3 , offset: 1}}>
+            <div className="card">
+              <ul>
+                
+
+                {this.state.clients.map(client => (
+                  <TodoDelete
+                    key={client.id}
+                    details={client}
+                    onDelete={this.handleDelete}
+                  />
+                ))}
+
+
+              </ul>
+            </div>
+          </Col>
+
+          <Col sm={{ size: 3, offset: 1 }}>
+            <div className="card"></div>
+          </Col>
+
+          <Col sm={{ size: 3, offset: 1 }}>
+            <div className="card"></div>
+          </Col>
+
+        </Row>
         <TodoForm onClientAdd={this.handleAdd} />
-        
+
       </div>
     );
   }

@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-dnd-cjs": "^9.3.9",
+    "react-dnd-html5-backend-cjs": "^9.3.9",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "reactstrap": "^8.0.1"
